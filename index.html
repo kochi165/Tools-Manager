@@ -1,0 +1,124 @@
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <title>ToolsManager</title>
+  </head>
+  <body>
+    <header>
+      <div class="sitename">ToolsManager</div>
+
+      <nav class="menubar">
+        <ul>
+          <li class="home">
+            <a href="index.html">Home</a>
+          </li>
+
+          <li class="accountpage">
+            <a>アカウントページ</a>
+          </li>
+
+          <li>
+            <button id="login-button">ログイン</button>
+
+            <dialog>
+              <form method="dialog">
+                <p>ログイン情報を入力してください</p>
+
+                <label for="loginName"> ユーザー名: </label>
+
+                <input id="loginName" type="text" data-type="loginName" />
+
+                <br />
+
+                <label for="loginPass"> パスワード: </label>
+
+                <input id="loginPass" type="password" data-type="loginPass" />
+
+                <button class="enter">ログイン</button>
+
+                <button class="exit">閉じる</button>
+              </form>
+            </dialog>
+          </li>
+
+          <li>
+            <button id="register-button">新規登録</button>
+
+            <dialog>
+              <form method="dialog">
+                <p>アカウント情報を入力してください</p>
+
+                <label for="regi-Name"> ユーザー名: </label>
+
+                <input id="regi-Name" type="text" data-type="regi-Name" />
+
+                <br />
+
+                <label for="regi-Pass"> パスワード: </label>
+
+                <input id="regi-Pass" type="password" data-type="regi-Pass" />
+
+                <label for="regi-Pass2"> パスワード確認: </label>
+
+                <input id="regi-Pass2" type="password" data-type="regi-Pass2" />
+
+                <button class="enter">ログイン</button>
+
+                <button class="exit">閉じる</button>
+              </form>
+            </dialog>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <div id="main-contents">
+      <div id="sidebar">
+        <aside>
+          <ul class="sidebar">
+            <li><a>FFmpeg Converter</a></li>
+            <li><a>Git Setup Assistant</a></li>
+          </ul>
+        </aside>
+      </div>
+
+      <main>
+        <section class="introduction">
+          <h2>サイト概要</h2>
+          <p>
+            ToolsManagerはコマンド操作や複雑な設定が必要な作業を、Web上で直感的に行えるサイトです
+          </p>
+        </section>
+
+        <section class="catalog">
+          <section class="tools" id="ffmpeg">
+            <h3 class="tool-title">FFmpeg Converter</h3>
+
+            <p class="tool-explanation">
+              動画・音声の変換などを気軽に行うことができます
+            </p>
+          </section>
+
+          <section class="tools" id="gitAssist">
+            <h3 class="tool-title">Git Setup Assistant</h3>
+
+            <p class="tool-explanation">
+              Git、GitHubのセットアップを1からお手伝いします
+            </p>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      <section class="footer">
+        <ul>
+          <li><a>GitHub</a></li>
+          <li>version:</li>
+          <li>Copyright</li>
+        </ul>
+      </section>
+    </footer>
+  </body>
+</html>
