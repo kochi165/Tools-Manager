@@ -1,0 +1,44 @@
+body {
+  background-color: rgba(165, 42, 42, 0.714);
+  margin: 0;
+}
+
+header {
+  background-color: white;
+  margin: 0;
+}
+
+.sitename {
+  background-color: rgb(179, 208, 233);
+  color: rgb(4, 0, 255);
+  width: fit-content;
+  padding: 0.5rem;
+}
+.menubar {
+  display: block;
+  background-color: gray;
+  color: white;
+  padding: 3px;
+}
+
+.menu {
+  display: inline;
+  margin-right: 5%;
+}
+
+#sidebar {
+  float: left;
+  width: 225px;
+  height: 90%;
+  border: 2px solid rgb(150, 150, 150);
+  margin-right: 2rem;
+  background-color: rgb(191, 191, 191);
+}
+
+footer {
+  clear: both;
+}
+
+.footer ul {
+  list-style: none;
+}

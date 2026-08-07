@@ -11,18 +11,18 @@
 
       <nav class="menubar">
         <ul>
-          <li class="home">
+          <li class="menu">
             <a href="index.html">Home</a>
           </li>
 
-          <li class="accountpage">
+          <li class="menu">
             <a>アカウントページ</a>
           </li>
 
-          <li>
-            <button id="login-button">ログイン</button>
+          <li class="menu">
+            <button class="account-button" data-type="login">ログイン</button>
 
-            <dialog>
+            <dialog id="log-dialog" data-type="login">
               <form method="dialog">
                 <p>ログイン情報を入力してください</p>
 
@@ -36,17 +36,21 @@
 
                 <input id="loginPass" type="password" data-type="loginPass" />
 
+                <br />
+
                 <button class="enter">ログイン</button>
 
-                <button class="exit">閉じる</button>
+                <button class="exit" data-type="login">閉じる</button>
               </form>
             </dialog>
           </li>
 
-          <li>
-            <button id="register-button">新規登録</button>
+          <li class="menu">
+            <button class="account-button" data-type="register">
+              新規登録
+            </button>
 
-            <dialog>
+            <dialog id="regi-dialog" data-type="register">
               <form method="dialog">
                 <p>アカウント情報を入力してください</p>
 
@@ -60,13 +64,17 @@
 
                 <input id="regi-Pass" type="password" data-type="regi-Pass" />
 
+                <br />
+
                 <label for="regi-Pass2"> パスワード確認: </label>
 
                 <input id="regi-Pass2" type="password" data-type="regi-Pass2" />
 
-                <button class="enter">ログイン</button>
+                <br />
 
-                <button class="exit">閉じる</button>
+                <button class="enter">登録</button>
+
+                <button class="exit" data-type="register">閉じる</button>
               </form>
             </dialog>
           </li>
@@ -76,6 +84,7 @@
     <div id="main-contents">
       <div id="sidebar">
         <aside>
+          <p>サイドバー</p>
           <ul class="sidebar">
             <li><a>FFmpeg Converter</a></li>
             <li><a>Git Setup Assistant</a></li>
@@ -115,10 +124,11 @@
       <section class="footer">
         <ul>
           <li><a>GitHub</a></li>
-          <li>version:</li>
+          <li>version</li>
           <li>Copyright</li>
         </ul>
       </section>
     </footer>
+    <script src="script.js"></script>
   </body>
 </html>
