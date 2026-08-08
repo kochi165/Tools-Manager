@@ -28,17 +28,19 @@
 
                 <label for="loginName"> ユーザー名: </label>
 
-                <input id="loginName" type="text" data-type="loginName" />
+                <input id="loginName" type="text" nama="loginName" />
 
                 <br />
 
                 <label for="loginPass"> パスワード: </label>
 
-                <input id="loginPass" type="password" data-type="loginPass" />
+                <input id="loginPass" type="password" nama="loginPass" />
 
                 <br />
 
-                <button class="enter">ログイン</button>
+                <button class="enter" type="button" data-type="login">
+                  ログイン
+                </button>
 
                 <button class="exit" data-type="login">閉じる</button>
               </form>
@@ -56,25 +58,29 @@
 
                 <label for="regi-Name"> ユーザー名: </label>
 
-                <input id="regi-Name" type="text" data-type="regi-Name" />
+                <input id="regi-Name" type="text" name="regi-Name" />
 
                 <br />
 
                 <label for="regi-Pass"> パスワード: </label>
 
-                <input id="regi-Pass" type="password" data-type="regi-Pass" />
+                <input id="regi-Pass" type="password" name="regi-Pass" />
 
                 <br />
 
                 <label for="regi-Pass2"> パスワード確認: </label>
 
-                <input id="regi-Pass2" type="password" data-type="regi-Pass2" />
+                <input id="regi-Pass2" type="password" />
 
                 <br />
 
-                <button class="enter">登録</button>
+                <button class="enter" type="button" data-type="register">
+                  登録
+                </button>
 
                 <button class="exit" data-type="register">閉じる</button>
+
+                <p id="error-message"></p>
               </form>
             </dialog>
           </li>

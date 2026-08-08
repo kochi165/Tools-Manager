@@ -26,6 +26,12 @@ header {
   margin-right: 5%;
 }
 
+.account-button {
+  padding: 6px 15px;
+  border: none;
+  border-radius: 9999px;
+}
+
 #sidebar {
   float: left;
   width: 225px;

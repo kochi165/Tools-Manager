@@ -32,3 +32,53 @@ document.querySelectorAll('dialog').forEach((dialog) => {
     }
   });
 });
+
+const inputName = {
+  login: document.getElementById('loginName'),
+  register: document.getElementById('regi-Name')
+};
+
+const inputPass = {
+  login: document.getElementById('loginPass'),
+  register: document.getElementById('regi-Pass')
+};
+
+async function accountControl(e) {
+  try {
+    const datatype = e.currentTarget.dataset.type;
+    const response = await fetch(
+      `http://localhost:8080/accountController/${datatype}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: inputName[datatype].value,
+          password: inputPass[datatype].value
+        })
+      }
+    );
+  } catch (error) {
+    console.error('error');
+  }
+}
+
+document.querySelectorAll('.enter').forEach((enter) => {
+  enter.addEventListener('click', (e) => {
+    const datatype = e.currentTarget.dataset.type;
+    let pass_error = document.getElementById('error-message');
+    if (datatype === 'register') {
+      if (
+        document.getElementById('regi-Pass2').value !==
+        inputPass[datatype].value
+      ) {
+        pass_error.textContent = 'パスワードが異なっています';
+        return;
+      } else {
+        pass_error.textContent = '';
+      }
+    }
+    accountControl(e);
+  });
+});
