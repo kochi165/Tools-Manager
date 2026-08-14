@@ -20,71 +20,15 @@
           </li>
 
           <li class="menu">
-            <button class="account-button" data-type="login">ログイン</button>
-
-            <dialog id="log-dialog" data-type="login">
-              <form method="dialog">
-                <p>ログイン情報を入力してください</p>
-
-                <label for="loginName"> ユーザー名: </label>
-
-                <input id="loginName" type="text" nama="loginName" />
-
-                <br />
-
-                <label for="loginPass"> パスワード: </label>
-
-                <input id="loginPass" type="password" nama="loginPass" />
-
-                <br />
-
-                <button class="enter" type="button" data-type="login">
-                  ログイン
-                </button>
-
-                <button class="exit" data-type="login">閉じる</button>
-
-                <p id="error-message"></p>
-              </form>
-            </dialog>
+            <button class="account-button" data-type="logout">
+              ログアウト
+            </button>
           </li>
 
           <li class="menu">
-            <button class="account-button" data-type="register">
-              新規登録
+            <button class="account-button" data-type="account-page">
+              アカウントページ
             </button>
-
-            <dialog id="regi-dialog" data-type="register">
-              <form method="dialog">
-                <p>アカウント情報を入力してください</p>
-
-                <label for="regi-Name"> ユーザー名: </label>
-
-                <input id="regi-Name" type="text" name="regi-Name" />
-
-                <br />
-
-                <label for="regi-Pass"> パスワード: </label>
-
-                <input id="regi-Pass" type="password" name="regi-Pass" />
-
-                <br />
-
-                <label for="regi-Pass2"> パスワード確認: </label>
-
-                <input id="regi-Pass2" type="password" />
-
-                <br />
-
-                <button class="enter" type="button" data-type="register">
-                  登録
-                </button>
-
-                <button class="exit" data-type="register">閉じる</button>
-
-                <p id="error-message"></p>
-              </form>
-            </dialog>
           </li>
         </ul>
       </nav>

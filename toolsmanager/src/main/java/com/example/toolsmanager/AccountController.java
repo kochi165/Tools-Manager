@@ -1,23 +1,29 @@
 package com.example.toolsmanager;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-@Controller
+@CrossOrigin(origins = "http://127.0.0.1:5500")
+@RestController
 @RequestMapping("/accountController")
 public class AccountController {
 
+  AccountService service;
+
+  AccountController(AccountService service) {
+    this.service = service;
+  }
+
   @PostMapping("/login")
-  void login(@RequestBody AccountData userdata) {
-    userdata.getUsername();
-    userdata.getPassword();
+  boolean login(@RequestBody AccountData data) {
+    return service.login(data);
   }
 
   @PostMapping("/register")
-  void register(@RequestBody AccountData userdata) {
-    userdata.getUsername();
-    userdata.getPassword();
+  boolean register(@RequestBody AccountData data) {
+    return service.register(data);
   }
 }

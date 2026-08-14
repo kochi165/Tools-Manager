@@ -5,6 +5,7 @@ const dialogs = {
   register: document.getElementById('regi-dialog')
 };
 
+//ウィンドウポップアップ
 document.querySelectorAll('.account-button').forEach((button) => {
   button.addEventListener('click', (e) => {
     dialogs[e.currentTarget.dataset.type].showModal();
@@ -43,9 +44,13 @@ const inputPass = {
   register: document.getElementById('regi-Pass')
 };
 
+let error_message = document.getElementById('error-message');
+
+//httpリクエスト処理
 async function accountControl(e) {
   try {
     const datatype = e.currentTarget.dataset.type;
+
     const response = await fetch(
       `http://localhost:8080/accountController/${datatype}`,
       {
@@ -59,26 +64,45 @@ async function accountControl(e) {
         })
       }
     );
+
+    const bool = await response.json();
+
+    if (datatype === 'login') {
+      if (bool === true) {
+        window.location.replace('logged_in.html');
+      } else {
+        error_message.textContent = '入力情報が不正です';
+      }
+    }
+    if (datatype === 'register') {
+      if (bool === true) {
+        window.location.replace('account_page.html');
+      } else {
+        error_message.textContent = '既に登録されています';
+      }
+    }
   } catch (error) {
     console.error('error');
   }
 }
 
+//リスナー登録
 document.querySelectorAll('.enter').forEach((enter) => {
   enter.addEventListener('click', (e) => {
     const datatype = e.currentTarget.dataset.type;
-    let pass_error = document.getElementById('error-message');
+
     if (datatype === 'register') {
       if (
         document.getElementById('regi-Pass2').value !==
         inputPass[datatype].value
       ) {
-        pass_error.textContent = 'パスワードが異なっています';
+        error_message.textContent = 'パスワードが異なっています';
         return;
       } else {
-        pass_error.textContent = '';
+        error_message.textContent = '';
       }
     }
+
     accountControl(e);
   });
 });

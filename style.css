@@ -32,6 +32,10 @@ header {
   border-radius: 9999px;
 }
 
+#error-message {
+  color: red;
+}
+
 #sidebar {
   float: left;
   width: 225px;

@@ -4,19 +4,19 @@ public class AccountData {
   private String username;
   private String password;
 
-  void setUsername(String name) {
+  public void setUsername(String name) {
     username = name;
   }
 
-  void setPassword(String pass) {
+  public void setPassword(String pass) {
     password = pass;
   }
 
-  String getUsername() {
+  public String getUsername() {
     return username;
   }
 
-  String getPassword() {
+  public String getPassword() {
     return password;
   }
 }
