@@ -17,11 +17,6 @@ public class AccountController {
     this.service = service;
   }
 
-  @PostMapping("/login")
-  boolean login(@RequestBody AccountData data) {
-    return service.login(data);
-  }
-
   @PostMapping("/register")
   boolean register(@RequestBody AccountData data) {
     return service.register(data);

@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class AccountService {
 
   AccountRepository repository;
+
   PasswordEncoder passwordEncoder;
 
   // コンストラクタ
@@ -32,27 +33,5 @@ public class AccountService {
     repository.save(account);
 
     return true;
-  }
-
-  // ログイン
-  public boolean login(AccountData data) {
-    String name = data.getUsername();
-    Account account = repository.findByUsername(name);
-
-    if (account != null) {
-
-      if (passwordEncoder.matches(data.getPassword(), account.getPasswordHash())) {
-        System.out.println("ろぐいん");
-        return true;
-
-      } else {
-        System.out.println("えらー");
-        return false;
-      }
-
-    } else {
-      System.out.println("null");
-      return false;
-    }
   }
 }

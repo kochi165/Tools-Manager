@@ -23,28 +23,28 @@
             <button class="account-button" data-type="login">ログイン</button>
 
             <dialog id="log-dialog" data-type="login">
-              <form method="dialog">
+              <form id="log-form" action="/login" method="post">
                 <p>ログイン情報を入力してください</p>
 
                 <label for="loginName"> ユーザー名: </label>
 
-                <input id="loginName" type="text" nama="loginName" />
+                <input id="loginName" type="text" name="username" />
 
                 <br />
 
                 <label for="loginPass"> パスワード: </label>
 
-                <input id="loginPass" type="password" nama="loginPass" />
+                <input id="loginPass" type="password" name="password" />
 
                 <br />
 
-                <button class="enter" type="button" data-type="login">
-                  ログイン
+                <button data-type="login" type="submit">ログイン</button>
+
+                <button class="exit" data-type="login" type="button">
+                  閉じる
                 </button>
 
-                <button class="exit" data-type="login">閉じる</button>
-
-                <p id="error-message"></p>
+                <p id="log-error-message" class="error-message"></p>
               </form>
             </dialog>
           </li>
@@ -55,7 +55,7 @@
             </button>
 
             <dialog id="regi-dialog" data-type="register">
-              <form method="dialog">
+              <form id="regi-form" method="dialog">
                 <p>アカウント情報を入力してください</p>
 
                 <label for="regi-Name"> ユーザー名: </label>
@@ -76,13 +76,15 @@
 
                 <br />
 
-                <button class="enter" type="button" data-type="register">
+                <button class="entry" type="button" data-type="register">
                   登録
                 </button>
 
-                <button class="exit" data-type="register">閉じる</button>
+                <button class="exit" data-type="register" type="button">
+                  閉じる
+                </button>
 
-                <p id="error-message"></p>
+                <p id="regi-error-message" class="error-message"></p>
               </form>
             </dialog>
           </li>
