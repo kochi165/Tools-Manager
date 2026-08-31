@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="style.css" />
     <title>ToolsManager</title>
   </head>
+
   <body>
     <header>
       <div class="sitename">ToolsManager</div>
@@ -26,14 +27,12 @@
               <form id="log-form" action="/login" method="post">
                 <p>ログイン情報を入力してください</p>
 
-                <label for="loginName"> ユーザー名: </label>
-
+                <label for="loginName">ユーザー名:</label>
                 <input id="loginName" type="text" name="username" />
 
                 <br />
 
-                <label for="loginPass"> パスワード: </label>
-
+                <label for="loginPass">パスワード:</label>
                 <input id="loginPass" type="password" name="password" />
 
                 <br />
@@ -58,20 +57,17 @@
               <form id="regi-form" method="dialog">
                 <p>アカウント情報を入力してください</p>
 
-                <label for="regi-Name"> ユーザー名: </label>
-
+                <label for="regi-Name">ユーザー名:</label>
                 <input id="regi-Name" type="text" name="regi-Name" />
 
                 <br />
 
-                <label for="regi-Pass"> パスワード: </label>
-
+                <label for="regi-Pass">パスワード:</label>
                 <input id="regi-Pass" type="password" name="regi-Pass" />
 
                 <br />
 
-                <label for="regi-Pass2"> パスワード確認: </label>
-
+                <label for="regi-Pass2">パスワード確認:</label>
                 <input id="regi-Pass2" type="password" />
 
                 <br />
@@ -91,10 +87,12 @@
         </ul>
       </nav>
     </header>
+
     <div id="main-contents">
       <div id="sidebar">
         <aside>
           <p>サイドバー</p>
+
           <ul class="sidebar">
             <li><a>FFmpeg Converter</a></li>
             <li><a>Git Setup Assistant</a></li>
@@ -105,21 +103,417 @@
       <main>
         <section class="introduction">
           <h2>サイト概要</h2>
+
           <p>
             ToolsManagerはコマンド操作や複雑な設定が必要な作業を、Web上で直感的に行えるサイトです
           </p>
         </section>
 
         <section class="catalog">
-          <section class="tools" id="ffmpeg">
+          <!-- =========================
+               FFmpeg Converter
+          ========================== -->
+
+          <section id="ffmpeg-section" class="tools">
             <h3 class="tool-title">FFmpeg Converter</h3>
 
             <p class="tool-explanation">
               動画・音声の変換などを気軽に行うことができます
             </p>
+
+            <details id="ffmpeg-detail" class="details" data-tool="ffmpeg">
+              <summary class="summary">
+                <span class="summary_tag">変換を開始する</span>
+              </summary>
+
+              <div class="generate_support">
+                <!-- =========================
+                     モード選択
+                ========================== -->
+
+                <section class="mode-select">
+                  <fieldset class="mode-questions">
+                    <legend>使用するモードを選択してください</legend>
+
+                    <div class="mode-options">
+                      <label class="mode-card">
+                        <input
+                          type="radio"
+                          name="ffmpeg-mode"
+                          value="beginner"
+                        />
+
+                        <span class="mode-card-content">
+                          <strong>初心者向け</strong>
+                          <small> 質問に答えるだけで変換できます </small>
+                        </span>
+                      </label>
+
+                      <label class="mode-card">
+                        <input
+                          type="radio"
+                          name="ffmpeg-mode"
+                          value="developer"
+                        />
+
+                        <span class="mode-card-content">
+                          <strong>開発者向け</strong>
+                          <small> 詳細な設定を自分で指定します </small>
+                        </span>
+                      </label>
+                    </div>
+                  </fieldset>
+                </section>
+
+                <!-- =========================
+                     初心者向け
+                ========================== -->
+
+                <section class="questions-mode" data-mode="beginner">
+                  <form class="beginner-form">
+                    <fieldset class="questions">
+                      <legend>何をしますか？</legend>
+
+                      <label>
+                        <input type="radio" name="operation" value="convert" />
+                        ファイル形式を変換する
+                      </label>
+
+                      <label>
+                        <input
+                          type="radio"
+                          name="operation"
+                          value="extract-audio"
+                        />
+                        音声を抽出する
+                      </label>
+
+                      <label>
+                        <input type="radio" name="operation" value="cut" />
+                        指定した時間で切り抜く
+                      </label>
+
+                      <label>
+                        <input type="radio" name="operation" value="snapshot" />
+                        静止画を切り出す
+                      </label>
+                    </fieldset>
+
+                    <fieldset class="output-options">
+                      <legend>出力オプション</legend>
+
+                      <label>
+                        <input
+                          type="radio"
+                          name="output-option"
+                          value="high-quality"
+                        />
+                        高品質で出力
+                      </label>
+
+                      <label>
+                        <input
+                          type="radio"
+                          name="output-option"
+                          value="optimization"
+                        />
+                        動画容量を小さくする
+                      </label>
+                    </fieldset>
+
+                    <!-- 処理詳細 -->
+
+                    <section class="transition">
+                      <div class="operation-option" data-operation="convert">
+                        <h4>ファイル形式を変換</h4>
+
+                        <label>
+                          出力形式:
+                          <select name="convert-format">
+                            <option value="mp4">MP4</option>
+                            <option value="webm">WebM</option>
+                            <option value="avi">AVI</option>
+                            <option value="mkv">MKV</option>
+                          </select>
+                        </label>
+                      </div>
+
+                      <div
+                        class="operation-option"
+                        data-operation="extract-audio"
+                      >
+                        <h4>音声を抽出</h4>
+
+                        <label>
+                          音声形式:
+                          <select name="audio-format">
+                            <option value="mp3">MP3</option>
+                            <option value="wav">WAV</option>
+                            <option value="aac">AAC</option>
+                            <option value="flac">FLAC</option>
+                          </select>
+                        </label>
+                      </div>
+
+                      <div class="operation-option" data-operation="cut">
+                        <h4>指定時間で切り抜く</h4>
+
+                        <label>
+                          開始時間:
+                          <input
+                            type="text"
+                            name="start-time"
+                            placeholder="00:00:00"
+                          />
+                        </label>
+
+                        <label>
+                          終了時間:
+                          <input
+                            type="text"
+                            name="end-time"
+                            placeholder="00:01:00"
+                          />
+                        </label>
+                      </div>
+
+                      <div class="operation-option" data-operation="snapshot">
+                        <h4>静止画を切り出す</h4>
+
+                        <label>
+                          切り出す時間:
+                          <input
+                            type="text"
+                            name="snapshot-time"
+                            placeholder="00:00:10"
+                          />
+                        </label>
+
+                        <label>
+                          画像形式:
+                          <select name="image-format">
+                            <option value="png">PNG</option>
+                            <option value="jpg">JPG</option>
+                          </select>
+                        </label>
+                      </div>
+                    </section>
+
+                    <!-- 実行 -->
+
+                    <section class="execution">
+                      <div class="file-select">
+                        <label for="beginner-file"> 変換するファイル </label>
+
+                        <input
+                          id="beginner-file"
+                          class="up_file"
+                          type="file"
+                          name="file"
+                        />
+                      </div>
+
+                      <button
+                        type="button"
+                        class="execute-button"
+                        data-mode="beginner"
+                      >
+                        変換する
+                      </button>
+                    </section>
+                  </form>
+                </section>
+
+                <!-- =========================
+                     開発者向け
+                ========================== -->
+
+                <section class="questions-mode" data-mode="developer">
+                  <form class="developer-form">
+                    <fieldset class="questions">
+                      <legend>実行する処理を指定してください</legend>
+
+                      <label>
+                        <input type="radio" name="operation" value="convert" />
+                        ファイル形式を変換する
+                      </label>
+
+                      <label>
+                        <input
+                          type="radio"
+                          name="operation"
+                          value="extract-audio"
+                        />
+                        音声を抽出する
+                      </label>
+
+                      <label>
+                        <input type="radio" name="operation" value="cut" />
+                        指定した時間で切り抜く
+                      </label>
+
+                      <label>
+                        <input type="radio" name="operation" value="snapshot" />
+                        静止画を切り出す
+                      </label>
+                    </fieldset>
+
+                    <fieldset class="output-options">
+                      <legend>出力オプション</legend>
+
+                      <label>
+                        <input
+                          type="radio"
+                          name="developer-output-option"
+                          value="high-quality"
+                        />
+                        高品質で出力
+                      </label>
+
+                      <label>
+                        <input
+                          type="radio"
+                          name="developer-output-option"
+                          value="optimization"
+                        />
+                        動画容量を小さくする
+                      </label>
+                    </fieldset>
+
+                    <!-- 開発者向け詳細設定 -->
+
+                    <section class="transition">
+                      <div class="operation-option" data-operation="convert">
+                        <h4>ファイル形式変換 詳細設定</h4>
+
+                        <label>
+                          出力形式:
+                          <input
+                            type="text"
+                            name="developer-format"
+                            placeholder="mp4"
+                          />
+                        </label>
+
+                        <label>
+                          コーデック:
+                          <input
+                            type="text"
+                            name="codec"
+                            placeholder="libx264"
+                          />
+                        </label>
+                      </div>
+
+                      <div
+                        class="operation-option"
+                        data-operation="extract-audio"
+                      >
+                        <h4>音声抽出 詳細設定</h4>
+
+                        <label>
+                          音声形式:
+                          <input
+                            type="text"
+                            name="developer-audio-format"
+                            placeholder="mp3"
+                          />
+                        </label>
+
+                        <label>
+                          音声コーデック:
+                          <input
+                            type="text"
+                            name="audio-codec"
+                            placeholder="libmp3lame"
+                          />
+                        </label>
+                      </div>
+
+                      <div class="operation-option" data-operation="cut">
+                        <h4>切り抜き 詳細設定</h4>
+
+                        <label>
+                          開始:
+                          <input
+                            type="text"
+                            name="developer-start"
+                            placeholder="00:00:00"
+                          />
+                        </label>
+
+                        <label>
+                          終了:
+                          <input
+                            type="text"
+                            name="developer-end"
+                            placeholder="00:01:00"
+                          />
+                        </label>
+                      </div>
+
+                      <div class="operation-option" data-operation="snapshot">
+                        <h4>静止画抽出 詳細設定</h4>
+
+                        <label>
+                          時間:
+                          <input
+                            type="text"
+                            name="developer-snapshot-time"
+                            placeholder="00:00:10"
+                          />
+                        </label>
+
+                        <label>
+                          画像形式:
+                          <input
+                            type="text"
+                            name="developer-image-format"
+                            placeholder="png"
+                          />
+                        </label>
+                      </div>
+                    </section>
+
+                    <!-- 実行 -->
+
+                    <section class="execution">
+                      <div class="file-select">
+                        <label for="developer-file"> 変換するファイル </label>
+
+                        <input
+                          id="developer-file"
+                          class="up_file"
+                          type="file"
+                          name="file"
+                        />
+                      </div>
+
+                      <button
+                        type="button"
+                        class="execute-button"
+                        data-mode="developer"
+                      >
+                        変換する
+                      </button>
+                    </section>
+                  </form>
+                </section>
+              </div>
+
+              <!-- 実行結果 -->
+
+              <div class="executed">
+                <p>ここに生成物を出す</p>
+              </div>
+            </details>
           </section>
 
-          <section class="tools" id="gitAssist">
+          <!-- =========================
+               Git Setup Assistant
+          ========================== -->
+
+          <section id="gitAssist-section" class="tools">
             <h3 class="tool-title">Git Setup Assistant</h3>
 
             <p class="tool-explanation">
@@ -139,6 +533,7 @@
         </ul>
       </section>
     </footer>
+
     <script src="script.js"></script>
   </body>
 </html>

@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="style.css" />
     <title>ToolsManager</title>
   </head>
+
   <body>
     <header>
       <div class="sitename">ToolsManager</div>
@@ -33,10 +34,12 @@
         </ul>
       </nav>
     </header>
+
     <div id="main-contents">
       <div id="sidebar">
         <aside>
           <p>サイドバー</p>
+
           <ul class="sidebar">
             <li><a>FFmpeg Converter</a></li>
             <li><a>Git Setup Assistant</a></li>
@@ -47,20 +50,178 @@
       <main>
         <section class="introduction">
           <h2>サイト概要</h2>
+
           <p>
             ToolsManagerはコマンド操作や複雑な設定が必要な作業を、Web上で直感的に行えるサイトです
           </p>
         </section>
 
         <section class="catalog">
+          <!-- FFmpeg Converter -->
           <section class="tools" id="ffmpeg">
             <h3 class="tool-title">FFmpeg Converter</h3>
 
             <p class="tool-explanation">
               動画・音声の変換などを気軽に行うことができます
             </p>
+
+            <details class="details">
+              <!-- detailsを開いたときに最初に表示される部分 -->
+              <summary class="summary">
+                <span class="summary_tag">変換を開始する</span>
+              </summary>
+
+              <div class="generate_support">
+                <!-- モード選択 -->
+                <section class="mode-select">
+                  <fieldset class="mode-questions">
+                    <legend>使用するモードを選択してください</legend>
+
+                    <div class="mode-options">
+                      <label class="mode-card">
+                        <input type="radio" name="mode" value="beginner" />
+                        <span class="mode-card-content">
+                          <strong>初心者向け</strong>
+                          <small> 質問に答えるだけで変換できます </small>
+                        </span>
+                      </label>
+
+                      <label class="mode-card">
+                        <input type="radio" name="mode" value="developer" />
+                        <span class="mode-card-content">
+                          <strong>開発者向け</strong>
+                          <small> 詳細な設定を自分で指定します </small>
+                        </span>
+                      </label>
+                    </div>
+                  </fieldset>
+                </section>
+
+                <!-- 初心者向け -->
+                <section
+                  class="converter-mode"
+                  id="ffmpeg-beginner"
+                  data-mode="beginner"
+                >
+                  <form class="beginner-form">
+                    <fieldset class="questions">
+                      <legend>何をしますか？</legend>
+
+                      <label>
+                        <input
+                          type="checkbox"
+                          name="operation"
+                          value="convert"
+                        />
+                        ファイル形式を変換する
+                      </label>
+
+                      <label>
+                        <input
+                          type="checkbox"
+                          name="operation"
+                          value="extract-audio"
+                        />
+                        音声を抽出する
+                      </label>
+
+                      <label>
+                        <input type="checkbox" name="operation" value="cut" />
+                        指定した時間で切り抜く
+                      </label>
+
+                      <label>
+                        <input
+                          type="checkbox"
+                          name="operation"
+                          value="snapshot"
+                        />
+                        静止画を切り出す
+                      </label>
+                    </fieldset>
+
+                    <div class="file-select">
+                      <label for="beginner-file"> 変換するファイル </label>
+
+                      <input
+                        id="beginner-file"
+                        class="up_file"
+                        type="file"
+                        name="file"
+                      />
+                    </div>
+
+                    <button
+                      type="button"
+                      class="execute-button"
+                      data-mode="beginner"
+                    >
+                      変換する
+                    </button>
+                  </form>
+                </section>
+
+                <!-- 開発者向け -->
+                <section
+                  class="converter-mode"
+                  id="ffmpeg-developer"
+                  data-mode="developer"
+                >
+                  <form class="developer-form">
+                    <fieldset class="questions">
+                      <legend>詳細設定</legend>
+
+                      <p>開発者向け設定（ダミー）</p>
+
+                      <label>
+                        コーデック
+                        <input
+                          type="text"
+                          name="codec"
+                          placeholder="例: libx264"
+                        />
+                      </label>
+
+                      <label>
+                        ビットレート
+                        <input
+                          type="text"
+                          name="bitrate"
+                          placeholder="例: 2000k"
+                        />
+                      </label>
+                    </fieldset>
+
+                    <div class="file-select">
+                      <label for="developer-file"> 変換するファイル </label>
+
+                      <input
+                        id="developer-file"
+                        class="up_file"
+                        type="file"
+                        name="file"
+                      />
+                    </div>
+
+                    <button
+                      type="button"
+                      class="execute-button"
+                      data-mode="developer"
+                    >
+                      変換する
+                    </button>
+                  </form>
+                </section>
+              </div>
+
+              <!-- FFmpeg実行結果 -->
+              <div class="execution">
+                <p>ここに生成物を出す</p>
+              </div>
+            </details>
           </section>
 
+          <!-- Git Setup Assistant -->
           <section class="tools" id="gitAssist">
             <h3 class="tool-title">Git Setup Assistant</h3>
 
@@ -81,6 +242,7 @@
         </ul>
       </section>
     </footer>
+
     <script src="script.js"></script>
   </body>
 </html>

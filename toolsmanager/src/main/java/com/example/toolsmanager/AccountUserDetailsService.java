@@ -12,13 +12,11 @@ public class AccountUserDetailsService implements UserDetailsService {
   private final AccountRepository repository;
 
   public AccountUserDetailsService(AccountRepository repository) {
-    System.out.println("届いてます3");
     this.repository = repository;
   }
 
   @Override
   public UserDetails loadUserByUsername(String username) {
-    System.out.println("届いてますー");
 
     Account account = repository.findByUsername(username);
 

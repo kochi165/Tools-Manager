@@ -10,41 +10,40 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
+        @Bean
+        PasswordEncoder passwordEncoder() {
+                return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        }
 
-    @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        System.out.println("届いてます2");
-        http
+        @Bean
+        SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                http
 
-                .authorizeHttpRequests(authz -> authz
-                        .requestMatchers(
-                                "/index.html",
-                                "/style.css",
-                                "/script.js",
-                                "/accountController/register")
-                        .permitAll()
+                                .authorizeHttpRequests(authz -> authz
+                                                .requestMatchers(
+                                                                "/index.html",
+                                                                "/style.css",
+                                                                "/script.js",
+                                                                "/accountController/register")
+                                                .permitAll()
 
-                        .anyRequest().authenticated())
+                                                .anyRequest().authenticated())
 
-                .formLogin(login -> login
-                        .loginProcessingUrl("/login")
-                        .loginPage("/index.html")
-                        .defaultSuccessUrl("/account_page.html")
-                        .failureUrl("/index.html?error")
-                        .permitAll())
+                                .formLogin(login -> login
+                                                .loginProcessingUrl("/login")
+                                                .loginPage("/index.html")
+                                                .defaultSuccessUrl("/account_page.html")
+                                                .failureUrl("/index.html?error")
+                                                .permitAll())
 
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
-                        .logoutSuccessUrl("/index.html"))
-                // 修正予定
-                .csrf(csrf -> csrf.disable());
+                                .logout(logout -> logout
+                                                .logoutUrl("/logout")
+                                                .invalidateHttpSession(true)
+                                                .deleteCookies("JSESSIONID")
+                                                .logoutSuccessUrl("/index.html"))
+                                // 修正予定
+                                .csrf(csrf -> csrf.disable());
 
-        return http.build();
-    }
+                return http.build();
+        }
 }
