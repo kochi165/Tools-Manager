@@ -382,7 +382,7 @@ main {
 ========================= */
 
 .execution {
-  display: none;
+  display: flex;
 
   flex-direction: column;
   gap: 1rem;

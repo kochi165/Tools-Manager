@@ -106,13 +106,14 @@ const tools = {
   //以後他機能実装のためにオブジェクト化
 };
 
-//表示分岐
+//分岐
 {
   document.querySelectorAll('.details').forEach((detail) => {
-    const tool = tools[detail.dataset.tool];
+    const identify = detail.dataset.tool;
+    const tool = tools[identify];
     let mode;
 
-    //モード選択分岐
+    //モード分岐
     tool.querySelectorAll('input[name="ffmpeg-mode"]').forEach((input) => {
       input.addEventListener('change', (e) => {
         mode = e.currentTarget.value;
@@ -123,6 +124,8 @@ const tools = {
           const style = another.style;
           if (another == section) {
             style.display = 'block';
+          } else if (!section) {
+            return;
           } else {
             style.display = 'none';
           }
@@ -130,7 +133,7 @@ const tools = {
       });
     });
 
-    //オペレーション選択分岐
+    //オペレーション分岐
     tool.querySelectorAll('input[name="operation"]').forEach((input) => {
       input.addEventListener('change', (e) => {
         const operation = e.currentTarget.value;
@@ -158,5 +161,36 @@ const tools = {
         });
       });
     });
+
+    //プロセス分岐
+    tool.querySelectorAll('.operation-option').forEach((option) => {
+      let process;
+      option.querySelectorAll('form').forEach((form) => {
+        process = form.name;
+      });
+
+      if (!process) {
+        return;
+      }
+
+      switch (identify) {
+        case 'ffmpeg':
+          switch (process) {
+            case 'convert':
+              break;
+            case 'extract-audio':
+              break;
+            case 'cutTime':
+              break;
+            case 'snapshot':
+              break;
+          }
+          break;
+      }
+    });
   });
 }
+//httpリクエスト
+/*
+async function commandControl() {}
+*/
