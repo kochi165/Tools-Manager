@@ -147,18 +147,47 @@ let command;
     });
   }
 
-  function createData(div) {
-    const formData = {};
-    div.querySelectorAll('[data-option]').forEach((input) => {
-      formData[input.dataset.option] = input.value;
-    });
+  function createData() {
+    const formData = {
+      selected: {},
+      output: null,
+      file: null
+    };
+
+    const operation = toolElements[`${status.tool}`][`${status.mode}`];
+
+    const outputOption = operation.querySelector(
+      'input[name="output-option"]:checked'
+    );
+
+    const fileInput = operation.querySelector('[name="file"]');
+
+    const file = fileInput.files[0];
+
+    operation
+      .querySelector(`[data-operation ="${status.operation}"]`)
+      .querySelectorAll('[data-option]')
+      .forEach((input) => {
+        formData.selected[input.dataset.option] = input.value;
+      });
+
+    if (outputOption) {
+      formData.output = outputOption.value;
+    }
+
+    if (file) {
+      formData.file = file;
+    } else {
+      formData.file = 'dummy';
+    }
+
     return formData;
   }
 
-  function writing(formData) {
+  function writing(sendData) {
     command = JSON.stringify({
       process: status.operation,
-      option: formData
+      option: sendData
     });
 
     console.log(command);
@@ -192,16 +221,13 @@ let command;
   });
 
   //オプション取得
-  document.querySelectorAll('.operation-option div').forEach((div) => {
-    if (!div) {
-      console.log('formなし:', div);
-      return;
-    }
-
-    div.addEventListener('submit', (e) => {
+  document.querySelectorAll('.execute-operation').forEach((execute) => {
+    execute.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      writing(createData(div));
+      const sendData = createData();
+
+      writing(sendData);
     });
   });
 }

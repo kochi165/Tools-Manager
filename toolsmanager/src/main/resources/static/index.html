@@ -284,14 +284,10 @@
                     <section class="execution">
                       <form class="execute-operation">
                         <div class="file-select">
-                          <label for="beginner-file"> 変換するファイル </label>
-
-                          <input
-                            id="beginner-file"
-                            class="up_file"
-                            type="file"
-                            name="file"
-                          />
+                          <label>
+                            <input class="up_file" type="file" name="file" />
+                            変換するファイル
+                          </label>
                         </div>
 
                         <fieldset class="output-options">
@@ -464,49 +460,46 @@
                   </section>
 
                   <!-- 実行 -->
-
                   <section class="execution">
-                    <div class="file-select">
-                      <label for="developer-file"> 変換するファイル </label>
+                    <form class="execute-operation">
+                      <div class="file-select">
+                        <label>
+                          <input class="up_file" type="file" name="file" />
+                          変換するファイル
+                        </label>
+                      </div>
 
-                      <input
-                        id="developer-file"
-                        class="up_file"
-                        type="file"
-                        name="file"
-                      />
-                    </div>
+                      <fieldset class="output-options">
+                        <legend>出力オプション</legend>
 
-                    <fieldset class="output-options">
-                      <legend>出力オプション</legend>
+                        <label>
+                          <input
+                            type="radio"
+                            name="output-option"
+                            value="high-quality"
+                          />
+                          高品質で出力
+                        </label>
 
-                      <label>
-                        <input
-                          type="radio"
-                          name="developer-output-option"
-                          value="high-quality"
-                        />
-                        高品質で出力
-                      </label>
+                        <label>
+                          <input
+                            type="radio"
+                            name="output-option"
+                            value="optimization"
+                          />
+                          容量を小さくする
+                        </label>
+                      </fieldset>
 
-                      <label>
-                        <input
-                          type="radio"
-                          name="developer-output-option"
-                          value="optimization"
-                        />
-                        容量を小さくする
-                      </label>
-                    </fieldset>
+                      <button
+                        type="submit"
+                        class="execute-button"
+                        data-mode="beginner"
+                      >
+                        変換する
+                      </button>
+                    </form>
                   </section>
-
-                  <button
-                    type="submit"
-                    class="execute-button"
-                    data-mode="developer"
-                  >
-                    変換する
-                  </button>
 
                   <p class="error-message"></p>
                 </section>
