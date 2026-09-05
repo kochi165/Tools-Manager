@@ -1,4 +1,4 @@
-package com.example.toolsmanager;
+package com.example.toolsmanager.Account;
 
 public class AccountData {
   private String username;

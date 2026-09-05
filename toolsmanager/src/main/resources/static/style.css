@@ -289,7 +289,7 @@ main {
 }
 
 .output-options {
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: 0.7rem;
 
@@ -346,21 +346,6 @@ main {
 .operation-option input,
 .operation-option select {
   padding: 0.5rem;
-}
-
-/* =========================
-   戻るボタン
-========================= */
-
-.back-button {
-  width: fit-content;
-
-  padding: 0.5rem 1rem;
-
-  border: none;
-  border-radius: 9999px;
-
-  cursor: pointer;
 }
 
 /* =========================

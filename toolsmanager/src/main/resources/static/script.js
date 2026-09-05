@@ -88,105 +88,120 @@ async function accountControl() {
 {
   document.querySelectorAll('.entry').forEach((entry) => {
     entry.addEventListener('click', (e) => {
-      const datatype = e.currentTarget.dataset.type;
-
       if (document.getElementById('regi-Pass2').value !== inputPass.value) {
-        error_messages[datatype].textContent = 'パスワードが異なっています';
+        error_messages['register'].textContent = 'パスワードが異なっています';
         return;
       } else {
-        error_messages[datatype].textContent = '';
+        error_messages['register'].textContent = '';
       }
       accountControl();
     });
   });
 }
 
-const tools = {
-  ffmpeg: document.getElementById('ffmpeg-detail')
-  //以後他機能実装のためにオブジェクト化
-};
-
+let command;
 //分岐
 {
-  document.querySelectorAll('.details').forEach((detail) => {
-    const identify = detail.dataset.tool;
-    const tool = tools[identify];
-    let mode;
+  const status = {
+    tool: null,
+    mode: null,
+    operation: null
+  };
 
-    //モード分岐
-    tool.querySelectorAll('input[name="ffmpeg-mode"]').forEach((input) => {
-      input.addEventListener('change', (e) => {
-        mode = e.currentTarget.value;
+  const toolElements = {
+    ffmpeg: {
+      beginner: document.getElementById('ffmpeg-beginner'),
+      developer: document.getElementById('ffmpeg-developer')
+    }
+  };
 
-        const section = tool.querySelector(`section[data-mode="${mode}"]`);
+  function modeChange(mode) {
+    if (!status.tool) {
+      return;
+    }
+    document.querySelectorAll('.questions-mode').forEach((section) => {
+      section.style.display = 'none';
+    });
+    toolElements[status.tool][mode].style.display = 'block';
+  }
 
-        tool.querySelectorAll('.questions-mode').forEach((another) => {
-          const style = another.style;
-          if (another == section) {
-            style.display = 'block';
-          } else if (!section) {
-            return;
-          } else {
-            style.display = 'none';
-          }
-        });
-      });
+  function opeChange(operation) {
+    if (!toolElements[status.tool]?.[status.mode]) {
+      return;
+    }
+
+    const currentElement =
+      toolElements[status.tool][status.mode].querySelectorAll(
+        '.operation-option'
+      );
+
+    currentElement.forEach((div) => {
+      div.style.display = 'none';
+
+      const form = div.querySelector(`div[data-operation="${operation}"]`);
+
+      if (form) {
+        div.closest('.transition').style.display = 'flex';
+        div.style.display = 'block';
+      }
+    });
+  }
+
+  function createData(div) {
+    const formData = {};
+    div.querySelectorAll('[data-option]').forEach((input) => {
+      formData[input.dataset.option] = input.value;
+    });
+    return formData;
+  }
+
+  function writing(formData) {
+    command = JSON.stringify({
+      process: status.operation,
+      option: formData
     });
 
-    //オペレーション分岐
-    tool.querySelectorAll('input[name="operation"]').forEach((input) => {
-      input.addEventListener('change', (e) => {
-        const operation = e.currentTarget.value;
+    console.log(command);
+  }
 
-        tool.querySelectorAll('.operation-option').forEach((option) => {
-          const style = option.style;
-
-          if (option.dataset.operation === operation) {
-            style.display = 'block';
-          } else {
-            style.display = 'none';
-          }
-        });
-
-        tool.querySelectorAll('.transition').forEach((another) => {
-          const style = another.style;
-
-          if (another.parentElement.classList.contains(`${mode}-form`)) {
-            style.display = 'block';
-          } else if (!mode) {
-            return;
-          } else {
-            style.display = 'none';
-          }
-        });
-      });
+  //ツール取得
+  document.querySelectorAll('details').forEach((detail) => {
+    detail.addEventListener('toggle', () => {
+      if (detail.open) {
+        status.tool = detail.dataset.tool;
+      }
     });
+  });
 
-    //プロセス分岐
-    tool.querySelectorAll('.operation-option').forEach((option) => {
-      let process;
-      option.querySelectorAll('form').forEach((form) => {
-        process = form.name;
-      });
+  //モード取得
+  document.querySelectorAll('.mode-options input').forEach((input) => {
+    input.addEventListener('change', (e) => {
+      const mode = e.currentTarget.value;
+      status.mode = mode;
+      modeChange(mode);
+    });
+  });
 
-      if (!process) {
-        return;
-      }
+  //オペレーション取得
+  document.querySelectorAll('input[name="operation"]').forEach((input) => {
+    input.addEventListener('change', (e) => {
+      const operation = e.currentTarget.value;
+      status.operation = operation;
+      opeChange(operation);
+    });
+  });
 
-      switch (identify) {
-        case 'ffmpeg':
-          switch (process) {
-            case 'convert':
-              break;
-            case 'extract-audio':
-              break;
-            case 'cutTime':
-              break;
-            case 'snapshot':
-              break;
-          }
-          break;
-      }
+  //オプション取得
+  document.querySelectorAll('.operation-option div').forEach((div) => {
+    if (!div) {
+      console.log('formなし:', div);
+      return;
+    }
+
+    div.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      writing(createData(div));
     });
   });
 }

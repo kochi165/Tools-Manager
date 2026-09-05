@@ -1,4 +1,4 @@
-package com.example.toolsmanager;
+package com.example.toolsmanager.Account;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

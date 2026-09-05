@@ -1,4 +1,4 @@
-package com.example.toolsmanager;
+package com.example.toolsmanager.Account;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -169,195 +169,313 @@
                      初心者向け
                 ========================== -->
 
-                <section class="questions-mode" data-mode="beginner">
-                  <form class="beginner-form" name="beginner-form">
-                    <fieldset class="questions">
-                      <legend>何をしますか？</legend>
+                <section
+                  id="ffmpeg-beginner"
+                  class="questions-mode"
+                  data-mode="beginner"
+                >
+                  <fieldset class="questions">
+                    <legend>何をしますか？</legend>
 
-                      <label>
-                        <input type="radio" name="operation" value="convert" />
-                        ファイル形式を変換する
-                      </label>
+                    <label>
+                      <input type="radio" name="operation" value="convert" />
+                      ファイル形式を変換する
+                    </label>
 
-                      <label>
-                        <input
-                          type="radio"
-                          name="operation"
-                          value="extract-audio"
-                        />
-                        音声を抽出する
-                      </label>
+                    <label>
+                      <input
+                        type="radio"
+                        name="operation"
+                        value="extract-audio"
+                      />
+                      音声を抽出する
+                    </label>
 
-                      <label>
-                        <input type="radio" name="operation" value="cutTime" />
-                        指定した時間で切り抜く
-                      </label>
+                    <label>
+                      <input type="radio" name="operation" value="cutTime" />
+                      指定した時間で切り抜く
+                    </label>
 
-                      <label>
-                        <input type="radio" name="operation" value="snapshot" />
-                        静止画を切り出す
-                      </label>
-                    </fieldset>
+                    <label>
+                      <input type="radio" name="operation" value="snapshot" />
+                      静止画を切り出す
+                    </label>
+                  </fieldset>
 
-                    <fieldset class="output-options">
-                      <legend>出力オプション</legend>
+                  <!-- 処理詳細 -->
 
-                      <label>
-                        <input
-                          type="radio"
-                          name="output-option"
-                          value="high-quality"
-                        />
-                        高品質で出力
-                      </label>
-
-                      <label>
-                        <input
-                          type="radio"
-                          name="output-option"
-                          value="optimization"
-                        />
-                        動画容量を小さくする
-                      </label>
-                    </fieldset>
-
-                    <!-- 処理詳細 -->
-
-                    <section class="transition">
-                      <div class="operation-option">
-                        <h4>ファイル形式を変換</h4>
-                        <form name="convert">
-                          <label>
-                            出力形式:
-                            <select data-option="video-format">
-                              <option value="mp4">MP4</option>
-                              <option value="webm">WebM</option>
-                              <option value="avi">AVI</option>
-                              <option value="mkv">MKV</option>
-                            </select>
-                          </label>
-                        </form>
+                  <section class="transition">
+                    <div class="operation-option">
+                      <h4>ファイル形式を変換</h4>
+                      <div data-operation="convert">
+                        <label>
+                          出力形式:
+                          <select data-option="video-format">
+                            <option value="mp4">MP4</option>
+                            <option value="webm">WebM</option>
+                            <option value="avi">AVI</option>
+                            <option value="mkv">MKV</option>
+                          </select>
+                        </label>
                       </div>
+                    </div>
 
-                      <div class="operation-option">
-                        <h4>音声を抽出</h4>
-                        <form name="extract-audio">
-                          <label>
-                            音声形式:
-                            <select data-option="audio-format">
-                              <option value="mp3">MP3</option>
-                              <option value="wav">WAV</option>
-                              <option value="aac">AAC</option>
-                              <option value="flac">FLAC</option>
-                            </select>
-                          </label>
-                        </form>
+                    <div class="operation-option">
+                      <h4>音声を抽出</h4>
+                      <div data-operation="extract-audio">
+                        <label>
+                          音声形式:
+                          <select data-option="audio-format">
+                            <option value="mp3">MP3</option>
+                            <option value="wav">WAV</option>
+                            <option value="aac">AAC</option>
+                            <option value="flac">FLAC</option>
+                          </select>
+                        </label>
                       </div>
+                    </div>
 
-                      <div class="operation-option">
-                        <h4>指定時間で切り抜く</h4>
-                        <form name="cutTime">
-                          <label>
-                            開始時間:
-                            <input
-                              type="text"
-                              data-option="video-start"
-                              placeholder="00:00:00"
-                            />
-                          </label>
+                    <div class="operation-option">
+                      <h4>指定時間で切り抜く</h4>
+                      <div data-operation="cutTime">
+                        <label>
+                          開始時間:
+                          <input
+                            type="text"
+                            data-option="video-start"
+                            placeholder="00:00:00"
+                          />
+                        </label>
 
-                          <label>
-                            終了時間:
-                            <input
-                              type="text"
-                              data-option="video-end"
-                              placeholder="00:01:00"
-                            />
-                          </label>
-                        </form>
+                        <label>
+                          終了時間:
+                          <input
+                            type="text"
+                            data-option="video-end"
+                            placeholder="00:01:00"
+                          />
+                        </label>
                       </div>
+                    </div>
 
-                      <div class="operation-option">
-                        <h4>静止画を切り出す</h4>
-                        <form name="snapshot">
-                          <label>
-                            切り出す時間:
-                            <input
-                              type="text"
-                              data-option="video-time"
-                              placeholder="00:00:10"
-                            />
-                          </label>
+                    <div class="operation-option">
+                      <h4>静止画を切り出す</h4>
+                      <div data-operation="snapshot">
+                        <label>
+                          切り出す時間:
+                          <input
+                            type="text"
+                            data-option="video-time"
+                            placeholder="00:00:10"
+                          />
+                        </label>
 
-                          <label>
-                            画像形式:
-                            <select data-option="image-format">
-                              <option value="png">PNG</option>
-                              <option value="jpg">JPG</option>
-                            </select>
-                          </label>
-                        </form>
+                        <label>
+                          画像形式:
+                          <select data-option="image-format">
+                            <option value="png">PNG</option>
+                            <option value="jpg">JPG</option>
+                          </select>
+                        </label>
                       </div>
-                    </section>
+                    </div>
 
                     <!-- 実行 -->
-
                     <section class="execution">
-                      <div class="file-select">
-                        <label for="beginner-file"> 変換するファイル </label>
+                      <form class="execute-operation">
+                        <div class="file-select">
+                          <label for="beginner-file"> 変換するファイル </label>
 
-                        <input
-                          id="beginner-file"
-                          class="up_file"
-                          type="file"
-                          name="file"
-                        />
-                      </div>
+                          <input
+                            id="beginner-file"
+                            class="up_file"
+                            type="file"
+                            name="file"
+                          />
+                        </div>
 
-                      <button
-                        type="button"
-                        class="execute-button"
-                        data-mode="beginner"
-                      >
-                        変換する
-                      </button>
+                        <fieldset class="output-options">
+                          <legend>出力オプション</legend>
+
+                          <label>
+                            <input
+                              type="radio"
+                              name="output-option"
+                              value="high-quality"
+                            />
+                            高品質で出力
+                          </label>
+
+                          <label>
+                            <input
+                              type="radio"
+                              name="output-option"
+                              value="optimization"
+                            />
+                            容量を小さくする
+                          </label>
+                        </fieldset>
+
+                        <button
+                          type="submit"
+                          class="execute-button"
+                          data-mode="beginner"
+                        >
+                          変換する
+                        </button>
+                      </form>
                     </section>
-                  </form>
+
+                    <p class="error-message"></p>
+                  </section>
                 </section>
 
                 <!-- =========================
                      開発者向け
                 ========================== -->
 
-                <section class="questions-mode" data-mode="developer">
-                  <form class="developer-form" name="developer-form">
-                    <fieldset class="questions">
-                      <legend>実行する処理を指定してください</legend>
+                <section
+                  id="ffmpeg-developer"
+                  class="questions-mode"
+                  data-mode="developer"
+                >
+                  <fieldset class="questions">
+                    <legend>実行する処理を指定してください</legend>
 
-                      <label>
-                        <input type="radio" name="operation" value="convert" />
-                        ファイル形式を変換する
-                      </label>
+                    <label>
+                      <input type="radio" name="operation" value="convert" />
+                      ファイル形式を変換する
+                    </label>
 
-                      <label>
-                        <input
-                          type="radio"
-                          name="operation"
-                          value="extract-audio"
-                        />
-                        音声を抽出する
-                      </label>
+                    <label>
+                      <input
+                        type="radio"
+                        name="operation"
+                        value="extract-audio"
+                      />
+                      音声を抽出する
+                    </label>
 
-                      <label>
-                        <input type="radio" name="operation" value="cutTime" />
-                        指定した時間で切り抜く
-                      </label>
+                    <label>
+                      <input type="radio" name="operation" value="cutTime" />
+                      指定した時間で切り抜く
+                    </label>
 
-                      <label>
-                        <input type="radio" name="operation" value="snapshot" />
-                        静止画を切り出す
-                      </label>
-                    </fieldset>
+                    <label>
+                      <input type="radio" name="operation" value="snapshot" />
+                      静止画を切り出す
+                    </label>
+                  </fieldset>
+
+                  <!-- 開発者向け詳細設定 -->
+
+                  <section class="transition">
+                    <div class="operation-option">
+                      <h4>ファイル形式変換 詳細設定</h4>
+                      <div data-operation="convert">
+                        <label>
+                          出力形式:
+                          <input
+                            type="text"
+                            data-option="video-format"
+                            placeholder="mp4"
+                          />
+                        </label>
+
+                        <label>
+                          コーデック:
+                          <input
+                            type="text"
+                            data-option="video-codec"
+                            placeholder="libx264"
+                          />
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="operation-option">
+                      <h4>音声抽出 詳細設定</h4>
+                      <div data-operation="extract-audio">
+                        <label>
+                          音声形式:
+                          <input
+                            type="text"
+                            data-option="audio-format"
+                            placeholder="mp3"
+                          />
+                        </label>
+
+                        <label>
+                          音声コーデック:
+                          <input
+                            type="text"
+                            data-option="audio-codec"
+                            placeholder="libmp3lame"
+                          />
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="operation-option">
+                      <h4>切り抜き 詳細設定</h4>
+                      <div data-operation="cutTime">
+                        <label>
+                          開始:
+                          <input
+                            type="text"
+                            data-option="video-start"
+                            placeholder="00:00:00"
+                          />
+                        </label>
+
+                        <label>
+                          終了:
+                          <input
+                            type="text"
+                            data-option="video-end"
+                            placeholder="00:01:00"
+                          />
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="operation-option">
+                      <h4>静止画抽出 詳細設定</h4>
+                      <div data-operation="snapshot">
+                        <label>
+                          時間:
+                          <input
+                            type="text"
+                            data-option="video-time"
+                            placeholder="00:00:10"
+                          />
+                        </label>
+
+                        <label>
+                          画像形式:
+                          <input
+                            type="text"
+                            data-option="image-format"
+                            placeholder="png"
+                          />
+                        </label>
+                      </div>
+                    </div>
+                  </section>
+
+                  <!-- 実行 -->
+
+                  <section class="execution">
+                    <div class="file-select">
+                      <label for="developer-file"> 変換するファイル </label>
+
+                      <input
+                        id="developer-file"
+                        class="up_file"
+                        type="file"
+                        name="file"
+                      />
+                    </div>
 
                     <fieldset class="output-options">
                       <legend>出力オプション</legend>
@@ -377,129 +495,20 @@
                           name="developer-output-option"
                           value="optimization"
                         />
-                        動画容量を小さくする
+                        容量を小さくする
                       </label>
                     </fieldset>
+                  </section>
 
-                    <!-- 開発者向け詳細設定 -->
+                  <button
+                    type="submit"
+                    class="execute-button"
+                    data-mode="developer"
+                  >
+                    変換する
+                  </button>
 
-                    <section class="transition">
-                      <div class="operation-option">
-                        <h4>ファイル形式変換 詳細設定</h4>
-                        <form name="convert">
-                          <label>
-                            出力形式:
-                            <input
-                              type="text"
-                              data-option="video-format"
-                              placeholder="mp4"
-                            />
-                          </label>
-
-                          <label>
-                            コーデック:
-                            <input
-                              type="text"
-                              data-option="video-codec"
-                              placeholder="libx264"
-                            />
-                          </label>
-                        </form>
-                      </div>
-
-                      <div class="operation-option">
-                        <h4>音声抽出 詳細設定</h4>
-                        <form name="extract-audio">
-                          <label>
-                            音声形式:
-                            <input
-                              type="text"
-                              data-option="audio-format"
-                              placeholder="mp3"
-                            />
-                          </label>
-
-                          <label>
-                            音声コーデック:
-                            <input
-                              type="text"
-                              data-option="audio-codec"
-                              placeholder="libmp3lame"
-                            />
-                          </label>
-                        </form>
-                      </div>
-
-                      <div class="operation-option">
-                        <h4>切り抜き 詳細設定</h4>
-                        <form name="cutTime">
-                          <label>
-                            開始:
-                            <input
-                              type="text"
-                              data-option="video-start"
-                              placeholder="00:00:00"
-                            />
-                          </label>
-
-                          <label>
-                            終了:
-                            <input
-                              type="text"
-                              data-option="video-end"
-                              placeholder="00:01:00"
-                            />
-                          </label>
-                        </form>
-                      </div>
-
-                      <div class="operation-option">
-                        <h4>静止画抽出 詳細設定</h4>
-                        <form name="snapshot">
-                          <label>
-                            時間:
-                            <input
-                              type="text"
-                              data-option="video-time"
-                              placeholder="00:00:10"
-                            />
-                          </label>
-
-                          <label>
-                            画像形式:
-                            <input
-                              type="text"
-                              data-option="image-format"
-                              placeholder="png"
-                            />
-                          </label>
-                        </form>
-                      </div>
-                    </section>
-
-                    <!-- 実行 -->
-
-                    <section class="execution">
-                      <div class="file-select">
-                        <label for="developer-file"> 変換するファイル </label>
-
-                        <input
-                          id="developer-file"
-                          class="up_file"
-                          type="file"
-                          name="file"
-                        />
-                      </div>
-
-                      <button
-                        type="button"
-                        class="execute-button"
-                        data-mode="developer"
-                      >
-                        変換する
-                      </button>
-                    </section>
-                  </form>
+                  <p class="error-message"></p>
                 </section>
               </div>
 

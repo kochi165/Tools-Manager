@@ -1,4 +1,4 @@
-package com.example.toolsmanager;
+package com.example.toolsmanager.Account;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
