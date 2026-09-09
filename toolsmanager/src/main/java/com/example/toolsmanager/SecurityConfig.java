@@ -1,4 +1,4 @@
-package com.example.toolsmanager.Account;
+package com.example.toolsmanager;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,8 @@ public class SecurityConfig {
                                                                 "/index.html",
                                                                 "/style.css",
                                                                 "/script.js",
-                                                                "/accountController/register")
+                                                                "/accountControl/register",
+                                                                "/toolControl/ffmpeg")
                                                 .permitAll()
 
                                                 .anyRequest().authenticated())

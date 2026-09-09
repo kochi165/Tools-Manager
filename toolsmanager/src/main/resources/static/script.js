@@ -67,11 +67,11 @@ const inputPass = document.getElementById('regi-Pass');
 async function accountControl() {
   try {
     const response = await fetch(
-      'http://localhost:8080/accountController/register',
+      'http://localhost:8080/accountControl/register',
       {
         method: 'POST',
         headers: {
-          'Content-type': 'application/json'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           username: inputName.value,
@@ -99,7 +99,6 @@ async function accountControl() {
   });
 }
 
-let command;
 //分岐
 {
   const status = {
@@ -148,13 +147,11 @@ let command;
   }
 
   function createData() {
-    const formData = {
-      selected: {},
-      output: null,
+    const sendData = {
+      command: { selected: {}, output: null },
       file: null
     };
-
-    const operation = toolElements[`${status.tool}`][`${status.mode}`];
+    const operation = toolElements[status.tool][status.mode];
 
     const outputOption = operation.querySelector(
       'input[name="output-option"]:checked'
@@ -168,29 +165,44 @@ let command;
       .querySelector(`[data-operation ="${status.operation}"]`)
       .querySelectorAll('[data-option]')
       .forEach((input) => {
-        formData.selected[input.dataset.option] = input.value;
+        sendData.command.selected[input.dataset.option] = input.value;
       });
 
     if (outputOption) {
-      formData.output = outputOption.value;
+      sendData.command.output = outputOption.value;
     }
 
     if (file) {
-      formData.file = file;
+      sendData.file = file;
     } else {
-      formData.file = 'dummy';
+      window.alert('Input a file');
+      return;
     }
 
-    return formData;
+    return sendData;
+  }
+
+  //httpリクエスト
+  async function commandControl(formData) {
+    console.log('リーチ');
+    const response = await fetch('http://localhost:8080/toolControl/ffmpeg', {
+      method: 'POST',
+      body: formData
+    });
   }
 
   function writing(sendData) {
-    command = JSON.stringify({
-      process: status.operation,
-      option: sendData
-    });
+    const formData = new FormData();
 
-    console.log(command);
+    formData.append('command', JSON.stringify(sendData.command));
+    formData.append('file', sendData.file);
+
+    commandControl(formData);
+
+    //デバッグ
+    for (const [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
   }
 
   //ツール取得
@@ -231,7 +243,3 @@ let command;
     });
   });
 }
-//httpリクエスト
-/*
-async function commandControl() {}
-*/
