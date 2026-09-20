@@ -1,6 +1,5 @@
 package com.example.toolsmanager.Tools.FFmpeg;
 
-import java.io.File;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,6 +11,8 @@ public class Executor {
 
     Result result = new Result();
 
+    String outputPath = data.getPath().getOutputPath();
+
     pb.command(data.getCommand());
 
     pb.redirectError(ProcessBuilder.Redirect.INHERIT);
@@ -19,13 +20,12 @@ public class Executor {
     Process process = pb.start();
     int ret = process.waitFor();
 
-    File file = new File(data.getOutputPath());
-
     if (ret == 0) {
       result.setCorrection(true);
-      result.setConvertedFile(file);
+      result.setFilePath(outputPath);
     } else {
       result.setCorrection(false);
+      result.setFilePath(null);
     }
 
     return result;

@@ -1,23 +1,24 @@
 package com.example.toolsmanager.Tools.FFmpeg;
 
-import org.springframework.beans.factory.annotation.Value;
-
 public class Path {
 
-  @Value("${tools.ffmpeg.tool.path}")
-  private String ffmpeg;
-  @Value("${tools.ffmpeg.temporary.path}")
+  private String toolPath;
   private String temporaryPath;
-  @Value("${tools.ffmpeg.save.path}")
   private String savaPath;
   private String outputPath;
+
+  public Path(String toolPath, String temporaryPath, String savePath) {
+    this.toolPath = toolPath;
+    this.temporaryPath = temporaryPath;
+    this.savaPath = savePath;
+  }
 
   public void setOutputPath(String path) {
     outputPath = path;
   }
 
-  public String getFFmpegPath() {
-    return ffmpeg;
+  public String getToolPath() {
+    return toolPath;
   }
 
   public String getTemporaryPath() {

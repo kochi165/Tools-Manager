@@ -1,5 +1,6 @@
 package com.example.toolsmanager.Tools.FFmpeg;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
@@ -13,22 +14,27 @@ import java.util.Comparator;
 public class CommandService {
 
   CommandRepository repository;
-  Path path;
   Executor executor;
 
-  CommandService(CommandRepository repository, Executor executor, Path path) {
+  CommandService(CommandRepository repository, Executor executor) {
     this.repository = repository;
-    this.path = path;
     this.executor = executor;
   }
 
+  @Value("${tools.ffmpeg.tool.path}")
+  private String toolPath;
+
+  @Value("${tools.ffmpeg.temporary.path}")
+  private String temporaryPath;
+
+  @Value("${tools.ffmpeg.save.path}")
+  private String savePath;
+
   public boolean process(SelectedData data) throws Exception {
 
-    String toolPath = path.getFFmpegPath();
-    String temporaryPath = path.getTemporaryPath();
-    String savePath = path.getSavePath();
+    Path path = new Path(toolPath, temporaryPath, savePath);
 
-    ExecutionData executionData = new ExecutionData(toolPath, temporaryPath, savePath);
+    ExecutionData executionData = new ExecutionData();
 
     Map<String, Object> commandMap = data.getCommandMap();
     MultipartFile file = data.getFile();
@@ -36,8 +42,6 @@ public class CommandService {
     String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 
     String filePath = temporaryPath + fileName;
-
-    executionData.setTemporaryPath(filePath);
 
     File dest = new File(filePath);
     file.transferTo(dest);
@@ -87,7 +91,9 @@ public class CommandService {
     commands.sort(Comparator.comparingInt(Command::getSortOrder));
 
     List<String> command = new ArrayList<String>();
-    command.add(toolPath + " " + "-i ");
+    command.add(toolPath + " ");
+    command.add("-i ");
+    command.add(filePath);
 
     int i = 1;
     for (Command phrase : commands) {
@@ -100,12 +106,16 @@ public class CommandService {
 
         command.add(output);
 
-        executionData.setOutputPath(savePath + "/" + output);
+        path.setOutputPath(savePath + "/" + output);
       }
       i++;
     }
 
     executionData.setCommand(command);
+    executionData.setPath(path);
+
+    System.out.println(executionData.getCommand());
+    System.out.println(executionData.getPath());
 
     Result result = executor.execute(executionData);
 
