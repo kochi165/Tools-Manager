@@ -1,27 +1,58 @@
 package com.example.toolsmanager.Tools.FFmpeg;
 
-import org.springframework.web.multipart.MultipartFile;
+import java.util.List;
 
 public class ExecutionData {
 
-  private String command;
+  private String toolPath;
+  private List<String> command;
+  private String temporaryPath;
+  private String savePath;
+  private String outputPath;
 
-  private MultipartFile file;
+  public ExecutionData(String toolPath, String temporaryPath, String savePath) {
+    this.toolPath = toolPath;
+    this.temporaryPath = temporaryPath;
+    this.savePath = savePath;
+  }
 
-  public void setCommand(String command) {
+  public void setToolPath(String path) {
+    toolPath = path;
+  }
+
+  public void setCommand(List<String> command) {
     this.command = command;
   }
 
-  public void setFile(MultipartFile file) {
-    this.file = file;
+  public void setTemporaryPath(String path) {
+    temporaryPath = path;
   }
 
-  public String getCommand() {
+  public void setSavePath(String path) {
+    savePath = path;
+  }
+
+  public void setOutputPath(String output) {
+    outputPath = output;
+  }
+
+  public String getToolPath() {
+    return toolPath;
+  }
+
+  public List<String> getCommand() {
     return command;
   }
 
-  public MultipartFile getFile() {
-    return file;
+  public String getTemporaryPath() {
+    return temporaryPath;
   }
 
+  public String getSavePath() {
+    return savePath;
+  }
+
+  public String getOutputPath() {
+    return outputPath;
+  }
 }

@@ -2,30 +2,51 @@ package com.example.toolsmanager.Tools.FFmpeg;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Comparator;
 
 @Service
+@SuppressWarnings("unchecked")
 public class CommandService {
 
   CommandRepository repository;
+  Path path;
+  Executor executor;
 
-  CommandService(CommandRepository repository) {
+  CommandService(CommandRepository repository, Executor executor, Path path) {
     this.repository = repository;
+    this.path = path;
+    this.executor = executor;
   }
 
-  public boolean process(SelectedData data) {
+  public boolean process(SelectedData data) throws Exception {
+
+    String toolPath = path.getFFmpegPath();
+    String temporaryPath = path.getTemporaryPath();
+    String savePath = path.getSavePath();
+
+    ExecutionData executionData = new ExecutionData(toolPath, temporaryPath, savePath);
 
     Map<String, Object> commandMap = data.getCommandMap();
     MultipartFile file = data.getFile();
+
+    String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+
+    String filePath = temporaryPath + fileName;
+
+    executionData.setTemporaryPath(filePath);
+
+    File dest = new File(filePath);
+    file.transferTo(dest);
 
     Map<String, String> selectData = (Map<String, String>) commandMap.get("selected");
     String outputOption = (String) commandMap.get("output");
 
     List<Command> commands = new ArrayList<>();
-    List<Command> outputCommands;
+    List<Command> outputCommands = new ArrayList<>();
 
     for (Map.Entry<String, String> entry : selectData.entrySet()) {
 
@@ -37,8 +58,6 @@ public class CommandService {
 
       commands.addAll(search);
     }
-
-    outputCommands = new ArrayList<>();
 
     for (Command command : commands) {
 
@@ -67,17 +86,29 @@ public class CommandService {
 
     commands.sort(Comparator.comparingInt(Command::getSortOrder));
 
-    StringBuilder command = new StringBuilder();
+    List<String> command = new ArrayList<String>();
+    command.add(toolPath + " " + "-i ");
 
-    ExecutionData executionData = new ExecutionData();
-
+    int i = 1;
     for (Command phrase : commands) {
-      command.append(phrase.getCommand());
+      if (i != commands.size()) {
+
+        command.add(phrase.getCommand() + " ");
+      } else if (i == commands.size()) {
+
+        String output = System.currentTimeMillis() + "_" + phrase.getCommand();
+
+        command.add(output);
+
+        executionData.setOutputPath(savePath + "/" + output);
+      }
+      i++;
     }
 
-    executionData.setCommand(command.toString());
-    executionData.setFile(file);
+    executionData.setCommand(command);
 
-    return true;
+    Result result = executor.execute(executionData);
+
+    return result.getCorrection();
   }
 }

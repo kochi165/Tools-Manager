@@ -21,7 +21,7 @@ public class ToolController {
   @PostMapping("/ffmpeg")
   void ffmpeg(
       @RequestPart("command") String command,
-      @RequestPart("file") MultipartFile file) {
+      @RequestPart("file") MultipartFile file) throws Exception {
 
     SelectedData data = new SelectedData();
     data.setCommandMap(command);
@@ -30,7 +30,7 @@ public class ToolController {
     System.out.println(data.getCommandMap());
     System.out.println(data.getFile());
 
-    service.process(data);
+    System.out.println(service.process(data));
   }
 
 }
