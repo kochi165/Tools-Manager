@@ -85,6 +85,9 @@ public class CommandService {
               option.addAll(repository.findByTypeAndCommandOption("video-codec", "mp4"));
 
               option.addAll(repository.findByTypeAndCommandOption("audio-codec", "aac"));
+
+              option.addAll(repository.findByTypeAndCommandOption("video-output", "mp4"));
+
               break;
 
             default:
@@ -150,8 +153,8 @@ public class CommandService {
     executionData.setCommand(command);
     executionData.setPath(path);
 
-    System.out.println(executionData.getCommand());
-    System.out.println(executionData.getPath());
+    System.out.println(executionData.getCommand() + "実行前コマンド");
+    System.out.println(executionData.getPath() + "実行前パス");
 
     Result result = executor.execute(executionData);
 

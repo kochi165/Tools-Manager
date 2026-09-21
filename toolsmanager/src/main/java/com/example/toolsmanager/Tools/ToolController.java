@@ -27,10 +27,10 @@ public class ToolController {
     data.setCommandMap(command);
     data.setFile(file);
 
-    System.out.println(data.getCommandMap());
-    System.out.println(data.getFile());
+    System.out.println(data.getCommandMap() + "コントローラーコマンドマップ");
+    System.out.println(data.getFile() + "コントローラーファイル");
 
-    System.out.println(service.process(data));
+    System.out.println(service.process(data) + "実行後真偽値");
   }
 
 }
