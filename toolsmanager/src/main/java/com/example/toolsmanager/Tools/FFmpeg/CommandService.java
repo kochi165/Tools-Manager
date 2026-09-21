@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Comparator;
-import java.util.HashMap;
 
 @Service
 @SuppressWarnings("unchecked")
@@ -51,28 +50,27 @@ public class CommandService {
     Map<String, String> outputOption = (Map<String, String>) commandMap.get("output");
 
     // フロントからの情報
-    Map<String, String> order = new HashMap<>();
-    order.put("type", null);
-    order.put("option", null);
+    List<List<String>> order = new ArrayList<>();
 
     // 統合
     for (Map.Entry<String, String> entry : selectData.entrySet()) {
-      order.put("type", entry.getKey());
-      order.put("option", entry.getValue());
+      order.add(List.of(entry.getKey(), entry.getValue()));
     }
     for (Map.Entry<String, String> entry : outputOption.entrySet()) {
-      order.put("type", entry.getKey());
-      order.put("option", entry.getValue());
+      order.add(List.of(entry.getKey(), entry.getValue()));
     }
 
     List<Command> commands = new ArrayList<>();
 
-    for (Map.Entry<String, String> currentOrder : order.entrySet()) {
+    for (List<String> currentOrder : order) {
+
+      String key = currentOrder.get(0);
+      String value = currentOrder.get(1);
 
       List<Command> type = new ArrayList<>();
       List<Command> option = new ArrayList<>();
 
-      switch (currentOrder.getKey()) {
+      switch (key) {
 
         // 処理形式判別
         case "video-format":
@@ -80,7 +78,7 @@ public class CommandService {
 
           type.addAll(repository.findByTypeAndCommandOption("audio-codec", "codec"));
 
-          switch (currentOrder.getValue()) {
+          switch (value) {
 
             // 詳細コマンド
             case "mp4":
@@ -98,7 +96,7 @@ public class CommandService {
         case "mp4":
           type = repository.findByTypeAndCommandOption("video-crf", "constant-rate-factor");
 
-          switch (currentOrder.getValue()) {
+          switch (value) {
 
             // 詳細コマンド
             case "high-quality":
