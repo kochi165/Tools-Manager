@@ -148,7 +148,7 @@ async function accountControl() {
 
   function createData() {
     const sendData = {
-      command: { selected: {}, output: null },
+      command: { selected: {}, output: {} },
       file: null
     };
     const operation = toolElements[status.tool][status.mode];
@@ -166,11 +166,10 @@ async function accountControl() {
       .querySelectorAll('[data-option]')
       .forEach((input) => {
         sendData.command.selected[input.dataset.option] = input.value;
+        if (outputOption) {
+          sendData.command.output[input.value] = outputOption.value;
+        }
       });
-
-    if (outputOption) {
-      sendData.command.output = outputOption.value;
-    }
 
     if (file) {
       sendData.file = file;

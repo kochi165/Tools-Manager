@@ -4,13 +4,13 @@ public class Path {
 
   private String toolPath;
   private String temporaryPath;
-  private String savaPath;
+  private String savePath;
   private String outputPath;
 
   public Path(String toolPath, String temporaryPath, String savePath) {
     this.toolPath = toolPath;
     this.temporaryPath = temporaryPath;
-    this.savaPath = savePath;
+    this.savePath = savePath;
   }
 
   public void setOutputPath(String path) {
@@ -26,7 +26,7 @@ public class Path {
   }
 
   public String getSavePath() {
-    return savaPath;
+    return savePath;
   }
 
   public String getOutputPath() {

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Comparator;
+import java.util.HashMap;
 
 @Service
 @SuppressWarnings("unchecked")
@@ -47,59 +48,96 @@ public class CommandService {
     file.transferTo(dest);
 
     Map<String, String> selectData = (Map<String, String>) commandMap.get("selected");
-    String outputOption = (String) commandMap.get("output");
+    Map<String, String> outputOption = (Map<String, String>) commandMap.get("output");
+
+    // フロントからの情報
+    Map<String, String> order = new HashMap<>();
+    order.put("type", null);
+    order.put("option", null);
+
+    // 統合
+    for (Map.Entry<String, String> entry : selectData.entrySet()) {
+      order.put("type", entry.getKey());
+      order.put("option", entry.getValue());
+    }
+    for (Map.Entry<String, String> entry : outputOption.entrySet()) {
+      order.put("type", entry.getKey());
+      order.put("option", entry.getValue());
+    }
 
     List<Command> commands = new ArrayList<>();
-    List<Command> outputCommands = new ArrayList<>();
 
-    for (Map.Entry<String, String> entry : selectData.entrySet()) {
+    for (Map.Entry<String, String> currentOrder : order.entrySet()) {
 
-      List<Command> search = repository.findByTypeAndCommandOption(entry.getKey(), entry.getValue());
+      List<Command> type = new ArrayList<>();
+      List<Command> option = new ArrayList<>();
 
-      if (search.isEmpty()) {
+      switch (currentOrder.getKey()) {
+
+        // 処理形式判別
+        case "video-format":
+          type.addAll(repository.findByTypeAndCommandOption("video-codec", "codec"));
+
+          type.addAll(repository.findByTypeAndCommandOption("audio-codec", "codec"));
+
+          switch (currentOrder.getValue()) {
+
+            // 詳細コマンド
+            case "mp4":
+              option.addAll(repository.findByTypeAndCommandOption("video-codec", "mp4"));
+
+              option.addAll(repository.findByTypeAndCommandOption("audio-codec", "aac"));
+              break;
+
+            default:
+              break;
+          }
+          break;
+
+        // 出力オプション
+        case "mp4":
+          type = repository.findByTypeAndCommandOption("video-crf", "constant-rate-factor");
+
+          switch (currentOrder.getValue()) {
+
+            // 詳細コマンド
+            case "high-quality":
+              option = repository.findByTypeAndCommandOption("video-crf", "high");
+              break;
+
+            default:
+              break;
+          }
+          break;
+
+        default:
+          break;
+      }
+
+      if (type.isEmpty() || option.isEmpty()) {
         return false;
       }
 
-      commands.addAll(search);
+      commands.addAll(type);
+      commands.addAll(option);
     }
 
-    for (Command command : commands) {
-
-      if (command.getType().contains("video")) {
-
-        outputCommands = repository.findByTypeAndCommandOption("video_output", outputOption);
-        break;
-
-      } else if (command.getType().contains("audio")) {
-
-        outputCommands = repository.findByTypeAndCommandOption("audio_output", outputOption);
-        break;
-
-      } else if (command.getType().contains("image")) {
-
-        outputCommands = repository.findByTypeAndCommandOption("image_output", outputOption);
-        break;
-      }
-    }
-
-    if (outputCommands.isEmpty()) {
+    if (commands.isEmpty()) {
       return false;
     }
-
-    commands.addAll(outputCommands);
 
     commands.sort(Comparator.comparingInt(Command::getSortOrder));
 
     List<String> command = new ArrayList<String>();
-    command.add(toolPath + " ");
-    command.add("-i ");
+    command.add(toolPath);
+    command.add("-i");
     command.add(filePath);
 
     int i = 1;
     for (Command phrase : commands) {
       if (i != commands.size()) {
 
-        command.add(phrase.getCommand() + " ");
+        command.add(phrase.getCommand());
       } else if (i == commands.size()) {
 
         String output = System.currentTimeMillis() + "_" + phrase.getCommand();
