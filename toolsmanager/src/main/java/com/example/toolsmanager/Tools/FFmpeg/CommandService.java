@@ -141,11 +141,11 @@ public class CommandService {
         command.add(phrase.getCommand());
       } else if (i == commands.size()) {
 
-        String output = System.currentTimeMillis() + "_" + phrase.getCommand();
+        String outputPath = savePath + System.currentTimeMillis() + "_" + phrase.getCommand();
 
-        command.add(output);
+        command.add(outputPath);
 
-        path.setOutputPath(savePath + "/" + output);
+        path.setOutputPath(outputPath);
       }
       i++;
     }
@@ -154,7 +154,7 @@ public class CommandService {
     executionData.setPath(path);
 
     System.out.println(executionData.getCommand() + "実行前コマンド");
-    System.out.println(executionData.getPath() + "実行前パス");
+    System.out.println(executionData.getPath().getOutputPath() + "実行前パス");
 
     Result result = executor.execute(executionData);
 
